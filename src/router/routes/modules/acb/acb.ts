@@ -32,15 +32,6 @@ const acb: AppRouteModule = {
         title: t('routes.acb.projdesign'),
       },
     },
-    {
-      path: 'vform3',
-      name: 'vform3',
-      component: () => import('/@/views/acb/vform3/index.vue'),
-      meta: {
-        // affix: true,
-        title: t('routes.acb.vform3'),
-      },
-    },
   ],
 };
 
