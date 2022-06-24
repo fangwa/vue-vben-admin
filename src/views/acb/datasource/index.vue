@@ -48,6 +48,7 @@
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
         api: dataSourceListApi,
+        autoCreateKey: false,
         columns: dataSourceListColumns,
         actionColumn: dataSourceLIstAction,
         pagination: { pageSize: 10 },

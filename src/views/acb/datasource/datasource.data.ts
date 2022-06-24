@@ -7,7 +7,6 @@ export const dataSourceListColumns: BasicColumn[] = [
   {
     title: 'ID',
     dataIndex: 'id',
-    fixed: 'left',
   },
   {
     title: '数据源名',

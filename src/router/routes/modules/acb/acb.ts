@@ -9,6 +9,7 @@ const acb: AppRouteModule = {
   component: LAYOUT,
   redirect: '/acb/datasource',
   meta: {
+    hideMenu: true,
     orderNo: 11,
     icon: 'ion:add-circle',
     title: t('routes.acb.lowcode'),
