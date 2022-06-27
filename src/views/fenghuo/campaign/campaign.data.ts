@@ -1,6 +1,10 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
+import { plansTreeApi } from '../../../api/fenghuo/plans';
+
+import { ChannelEnum } from '/@/api/fenghuo/enum/fenghuoEnum';
+
 /**
  * List页面
  */
@@ -61,4 +65,90 @@ export const searchFormSchema: FormSchema[] = [
     },
     colProps: { span: 4 },
   },
+];
+
+type selectOption = {
+  label: string;
+  value: number;
+};
+
+export const formSchema: FormSchema[] = [
+  {
+    colProps: {
+      span: 8,
+    },
+    field: 'channelId',
+    component: 'Select',
+    label: '渠道',
+    required: true,
+    componentProps: {
+      options: ((): selectOption[] => {
+        //values
+        let thisOptions: selectOption[] = [];
+        Object.values(ChannelEnum).forEach((value) => {
+          if (!isNaN(Number(value))) {
+            thisOptions.push({
+              label: ChannelEnum[value],
+              value: value as number,
+            });
+          }
+        });
+        return thisOptions;
+      })(),
+    },
+  },
+  {
+    colProps: {
+      span: 16,
+    },
+    field: 'goodId',
+    component: 'Input',
+    label: '商品Id',
+    required: true,
+  },
+  {
+    field: '计划Id',
+    component: 'ApiTreeSelect',
+    label: '计划',
+    required: true,
+    componentProps: {
+      // more details see /src/components/Form/src/components/ApiSelect.vue
+      api: plansTreeApi,
+      treeCheckable: true,
+      // params: {
+      //   id: 1,
+      // },
+      resultField: 'list',
+      minHeight: 900,
+      // use name as label
+      // labelField: 'title',
+      // use id as value
+      // valueField: 'value',
+      // not request untill to select
+      // immediate: false,
+      // onChange: (e) => {
+      //   console.log('selected:', e);
+      // },
+      // atfer request callback
+      // onOptionsChange: (options) => {
+      //   console.log('get options', options.length, options);
+      // },
+    },
+    colProps: {
+      span: 24,
+    },
+  },
+  // {
+  //   field: 'parentMenu',
+  //   label: '上级菜单',
+  //   component: 'ApiTreeSelect',
+  //   componentProps: {
+  //     fieldNames: {
+  //       label: 'menuName',
+  //       key: 'id',
+  //       value: 'id',
+  //     },
+  //     getPopupContainer: () => document.body,
+  //   },
+  // },
 ];

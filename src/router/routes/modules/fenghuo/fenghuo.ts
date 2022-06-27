@@ -11,7 +11,7 @@ const fenghuo: AppRouteModule = {
   meta: {
     orderNo: 12,
     icon: 'ion:add-circle',
-    title: t('烽火'),
+    title: t('routes.fenghuo.Hyperlinkverse'),
   },
   children: [
     {
