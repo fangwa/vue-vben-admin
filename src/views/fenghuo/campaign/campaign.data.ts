@@ -107,7 +107,7 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: '计划Id',
+    field: 'planId',
     component: 'ApiTreeSelect',
     label: '计划',
     required: true,
