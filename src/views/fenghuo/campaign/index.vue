@@ -2,8 +2,19 @@
   <PageWrapper>
     <BasicTable @register="registerTable">
       <template #tableTitle>
-        <a-button type="primary" @click="handleCreate"> 创建 </a-button>
+        <a-space>
+          <a-button type="primary" @click="handleCreate"> 创建 </a-button>
+        </a-space>
       </template>
+
+      <!-- <template #externalUrlWithUuid="{ text: externalUrlWithUuid }">
+        <a-button
+          v-show="externalUrlWithUuid && externalUrlWithUuid.length > 0"
+          pre-icon="mdi:content-copy"
+          size="small"
+          @click="copyExternalUrl(externalUrlWithUuid)"
+        />
+      </template> -->
     </BasicTable>
 
     <ECGoodLinkModal @register="registerModal" @success="handleCreateSuccess" />
@@ -11,6 +22,8 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import { Space } from 'ant-design-vue';
+
   import { PageWrapper } from '/@/components/Page';
   import { BasicTable, useTable } from '/@/components/Table';
   import { useModal } from '/@/components/Modal';
@@ -20,7 +33,7 @@
   import ECGoodLinkModal from './ECGoodLinkModal.vue';
 
   export default defineComponent({
-    components: { PageWrapper, BasicTable, ECGoodLinkModal },
+    components: { PageWrapper, BasicTable, ECGoodLinkModal, [Space.name]: Space },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
@@ -36,16 +49,13 @@
         pagination: { pageSize: 10 },
       });
 
-      function handleReloadCurrent(): void {
-        reload();
-      }
-
       function handleCreate() {
         //不传第二个参数,子空间不触发useModalInner回调
         openModal(true, {});
       }
 
       function handleCreateSuccess(): void {
+        console.info('handleCreateSuccess');
         reload({
           page: 1,
         });
@@ -53,7 +63,6 @@
 
       return {
         registerTable,
-        handleReloadCurrent,
         handleCreate,
         registerModal,
         handleCreateSuccess,

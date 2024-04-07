@@ -21,14 +21,14 @@ const demoList = (() => {
   return result;
 })();
 
-export default [
-  {
-    url: '/basic-api/fenghuo/getReports',
-    timeout: 100,
-    method: 'get',
-    response: ({ query }) => {
-      const { page = 1, pageSize = 20 } = query;
-      return resultPageSuccess(page, pageSize, demoList);
-    },
-  },
-] as MockMethod[];
+// export default [
+//   {
+//     url: '/basic-api/roi/roiReport/list',
+//     timeout: 100,
+//     method: 'get',
+//     response: ({ query }) => {
+//       const { page = 1, pageSize = 20 } = query;
+//       return resultPageSuccess(page, pageSize, demoList);
+//     },
+//   },
+// ] as MockMethod[];

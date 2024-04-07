@@ -2,7 +2,8 @@ import { defHttp } from '/@/utils/http/axios';
 import { CampaignParams, CampaignListGetResultModel } from './model/campaignModel';
 
 enum Api {
-  CAMPAIGN_LIST = '/fenghuo/getCampaigns',
+  CAMPAIGN_LIST = '/roi/roiAdplanGood/list',
+  CAMPAIGN_ADD = '/roi/roiAdplanGood/addBatch',
 }
 
 /**
@@ -16,4 +17,11 @@ export const campaignParamsListApi = (params?: CampaignParams) =>
     headers: {
       ignoreCancelToken: true,
     },
+  });
+
+export const campaignAdd = async (roiGoodId: number, adPlanId: string[]) =>
+  defHttp.post<String>({
+    url: Api.CAMPAIGN_ADD,
+    params: { roiGoodId, adPlanId },
+    timeout: 20000,
   });

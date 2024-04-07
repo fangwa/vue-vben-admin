@@ -1,9 +1,8 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
-import { plansTreeApi } from '../../../api/fenghuo/plans';
-
-import { ChannelEnum } from '/@/api/fenghuo/enum/fenghuoEnum';
+import { plansTreeApi, goodsTreeApi } from '../../../api/fenghuo/plans';
+import { goodParamsListNoPageApi } from '/@/api/fenghuo/good';
 
 /**
  * List页面
@@ -11,16 +10,38 @@ import { ChannelEnum } from '/@/api/fenghuo/enum/fenghuoEnum';
 export const campaignListColumns: BasicColumn[] = [
   {
     title: '工单号',
-    dataIndex: 'Id',
+    dataIndex: 'id',
     fixed: 'left',
+    width: 80,
   },
   {
-    title: '商品Id',
-    dataIndex: 'productId',
+    title: '渠道',
+    dataIndex: 'channel',
+    width: 90,
   },
+  // {
+  //   title: '商品Id',
+  //   dataIndex: 'goodId',
+  //   width: 120,
+  // },
   {
     title: '商品名称',
-    dataIndex: 'productName',
+    dataIndex: 'goodName',
+    width: 140,
+  },
+  // {
+  //   title: '落地页',
+  //   dataIndex: 'externalUrlWithUuid',
+  //   slots: { customRender: 'externalUrlWithUuid' },
+  // },
+  {
+    title: '商品链接',
+    dataIndex: 'url',
+  },
+  {
+    title: '媒体',
+    dataIndex: 'mediaType',
+    width: 90,
   },
   {
     title: '计划Id',
@@ -31,21 +52,27 @@ export const campaignListColumns: BasicColumn[] = [
     dataIndex: 'adPlanName',
   },
   {
-    title: '渠道',
-    dataIndex: 'channel',
+    title: '绑定时间',
+    dataIndex: 'createdTime',
   },
   {
     title: '状态',
-    dataIndex: 'status',
+    dataIndex: 'adStatus',
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'productId',
-    label: '商品Id',
-    component: 'Input',
+    field: 'roiGoodId',
+    label: '商品',
     colProps: { span: 6 },
+    component: 'ApiSelect',
+    componentProps: {
+      api: goodParamsListNoPageApi,
+      resultField: 'items',
+      labelField: 'name',
+      valueField: 'id',
+    },
   },
   {
     field: 'adPlanId',
@@ -53,58 +80,115 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Input',
     colProps: { span: 6 },
   },
-  {
-    field: 'status',
-    label: '状态',
-    component: 'Select',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
-    colProps: { span: 4 },
-  },
+  // {
+  //   field: 'status',
+  //   label: '状态',
+  //   component: 'Select',
+  //   componentProps: {
+  //     options: [
+  //       { label: '启用', value: '0' },
+  //       { label: '停用', value: '1' },
+  //     ],
+  //   },
+  //   colProps: { span: 4 },
+  // },
 ];
 
-type selectOption = {
-  label: string;
-  value: number;
-};
-
 export const formSchema: FormSchema[] = [
+  // {
+  //   colProps: {
+  //     span: 8,
+  //   },
+  //   field: 'ecType',
+  //   component: 'Select',
+  //   label: '电商',
+  //   required: true,
+  //   componentProps: {
+  //     options: ((): selectOption[] => {
+  //       //values
+  //       let thisOptions: selectOption[] = [];
+  //       Object.keys(EcEnum).forEach((ecEnumItem) => {
+  //         thisOptions.push({
+  //           label: EcEnum[ecEnumItem],
+  //           value: ecEnumItem,
+  //           // disabled: ecEnumItem == 'tb',
+  //         });
+  //         // }
+  //       });
+  //       return thisOptions;
+  //     })(),
+  //   },
+  // },
+  // {
+  //   colProps: {
+  //     span: 16,
+  //   },
+  //   field: 'goodType',
+  //   required: true,
+  //   component: 'RadioGroup',
+  //   label: '绑定类型',
+  //   componentProps: {
+  //     defaultValue: 2,
+  //     // disabled: true,
+  //     options: [
+  //       {
+  //         label: '商品Id',
+  //         value: 1,
+  //         disabled: true,
+  //       },
+  //       {
+  //         label: '商品链接',
+  //         value: 2,
+  //       },
+  //     ],
+  //   },
+  // },
+  // {
+  //   colProps: {
+  //     span: 24,
+  //   },
+  //   field: 'goodId',
+  //   component: 'Input',
+  //   label: '商品Id',
+  //   ifShow: ({ values }) => {
+  //     return values.goodType == 1;
+  //   },
+  //   dynamicRules: ({ values }) => {
+  //     return values.goodType == 1 ? [{ required: true }] : [];
+  //   },
+  // },
+  // {
+  //   colProps: {
+  //     span: 24,
+  //   },
+  //   field: 'shopUrl',
+  //   component: 'Input',
+  //   label: '商品链接',
+  //   ifShow: ({ values }) => {
+  //     return values.goodType == 2;
+  //   },
+  //   dynamicRules: ({ values }) => {
+  //     return values.goodType == 2 ? [{ required: true }] : [];
+  //   },
+  // },
   {
-    colProps: {
-      span: 8,
-    },
-    field: 'channelId',
-    component: 'Select',
-    label: '渠道',
+    field: 'roiGoodId',
+    component: 'ApiTreeSelect',
+    label: '商品',
     required: true,
     componentProps: {
-      options: ((): selectOption[] => {
-        //values
-        let thisOptions: selectOption[] = [];
-        Object.values(ChannelEnum).forEach((value) => {
-          if (!isNaN(Number(value))) {
-            thisOptions.push({
-              label: ChannelEnum[value],
-              value: value as number,
-            });
-          }
-        });
-        return thisOptions;
-      })(),
+      // more details see /src/components/Form/src/components/ApiSelect.vue
+      api: goodsTreeApi,
+      // params: {
+      //   id: 1,
+      // },
+      resultField: 'list',
+      minHeight: 900,
+      treeNodeFilterProp: 'title',
     },
-  },
-  {
     colProps: {
-      span: 16,
+      span: 24,
     },
-    field: 'goodId',
-    component: 'Input',
-    label: '商品Id',
-    required: true,
   },
   {
     field: 'planId',
@@ -120,35 +204,10 @@ export const formSchema: FormSchema[] = [
       // },
       resultField: 'list',
       minHeight: 900,
-      // use name as label
-      // labelField: 'title',
-      // use id as value
-      // valueField: 'value',
-      // not request untill to select
-      // immediate: false,
-      // onChange: (e) => {
-      //   console.log('selected:', e);
-      // },
-      // atfer request callback
-      // onOptionsChange: (options) => {
-      //   console.log('get options', options.length, options);
-      // },
+      treeNodeFilterProp: 'title',
     },
     colProps: {
       span: 24,
     },
   },
-  // {
-  //   field: 'parentMenu',
-  //   label: '上级菜单',
-  //   component: 'ApiTreeSelect',
-  //   componentProps: {
-  //     fieldNames: {
-  //       label: 'menuName',
-  //       key: 'id',
-  //       value: 'id',
-  //     },
-  //     getPopupContainer: () => document.body,
-  //   },
-  // },
 ];

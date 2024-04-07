@@ -32,7 +32,7 @@
             <ForgetPasswordForm />
             <RegisterForm />
             <MobileForm />
-            <QrCodeForm />
+            <QrCodeForm /><b>网站备案号 苏ICP备2022029106号-1</b>
           </div>
         </div>
       </div>

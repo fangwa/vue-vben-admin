@@ -37,7 +37,7 @@
   import { PageWrapper } from '/@/components/Page';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useModal } from '/@/components/Modal';
-  import { dataSourceListColumns, dataSourceLIstAction } from './datasource.data';
+  import { dataSourceListColumns, dataSourceListAction } from './datasource.data';
   import DataSourceModal from './DataSourceModal.vue';
 
   import { dataSourceListApi } from '/@/api/acb/datasource';
@@ -50,7 +50,7 @@
         api: dataSourceListApi,
         autoCreateKey: false,
         columns: dataSourceListColumns,
-        actionColumn: dataSourceLIstAction,
+        actionColumn: dataSourceListAction,
         pagination: { pageSize: 10 },
       });
 

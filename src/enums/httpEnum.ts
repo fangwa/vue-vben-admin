@@ -4,6 +4,7 @@
 export enum ResultEnum {
   SUCCESS = 0,
   ERROR = 1,
+  SUCCESS_SHOW_MESSAGE = 1,
   TIMEOUT = 401,
   TYPE = 'success',
 }

@@ -35,7 +35,7 @@ export const dataSourceListColumns: BasicColumn[] = [
   },
 ];
 
-export const dataSourceLIstAction: BasicColumn = {
+export const dataSourceListAction: BasicColumn = {
   width: 80,
   title: '操作',
   dataIndex: 'action',

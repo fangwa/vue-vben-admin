@@ -22,3 +22,16 @@ export interface ReportListItem {
  * @description: Request list return value
  */
 export type ReportListGetResultModel = BasicFetchResult<ReportListItem>;
+
+export interface GoodReportListItem {
+  picUrl: string;
+  name: string;
+  settledTime: string;
+  cartUv: number;
+  favorUv: number;
+}
+
+/**
+ * @description: Request list return value
+ */
+export type GoodReportListGetResultModel = BasicFetchResult<GoodReportListItem>;

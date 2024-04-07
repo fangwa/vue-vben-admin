@@ -19,3 +19,8 @@ export interface MajordomoAccountListItem {
  * @description: Request list return value
  */
 export type MajordomoAccountListGetResultModel = BasicFetchResult<MajordomoAccountListItem>;
+
+export interface wbAccountJointCommissioningModel {
+  code: number;
+  message: string;
+}

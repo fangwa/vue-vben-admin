@@ -1,7 +1,11 @@
 export default {
   Hyperlinkverse: 'Hyperlinkverse',
+  goodManage: 'GoodManage',
   campaignManage: 'CampaignManage',
   majordomoAccoutManage: 'MajordomoAccoutManage',
-  report: 'Report',
+  accountReport: 'AccountReport',
+  goodReport: 'GoodReport',
+  orderReport: 'OrderReport',
+  adReport: 'AdReport',
   setting: 'Setting',
 };

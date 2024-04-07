@@ -15,7 +15,7 @@
   import { BasicTable, useTable } from '/@/components/Table';
 
   import { reportParamsListApi } from '/@/api/fenghuo/report';
-  import { reportListColumns, searchFormSchema } from './report.data';
+  import { accountReportListColumns, accountSearchFormSchema } from './report.data';
 
   export default defineComponent({
     components: { PageWrapper, BasicTable },
@@ -23,27 +23,34 @@
       const [registerTable, { reload }] = useTable({
         api: reportParamsListApi,
         showIndexColumn: false,
-        columns: reportListColumns,
+        columns: accountReportListColumns,
         useSearchForm: true,
         formConfig: {
           labelWidth: 120,
-          schemas: searchFormSchema,
+          schemas: accountSearchFormSchema,
           autoSubmitOnEnter: true,
         },
-        // showSummary: true,
-        // summaryFunc: handleSummary,
+        showSummary: true,
+        summaryFunc: handleSummary,
         pagination: { pageSize: 10 },
       });
 
       function handleSummary(tableData: any[]) {
+        let totalCost = 0;
+        let totalGmv = 0;
         let totalEcDealCount = 0;
         tableData.forEach((item) => {
-          totalEcDealCount += item.ecDealCount;
+          totalEcDealCount += isNaN(item.ecDealCount) ? 0 : item.ecDealCount;
+          totalCost += isNaN(item.cost) ? 0 : item.cost;
+          totalGmv += isNaN(item.price) ? 0 : item.price;
         });
         return [
           {
-            roiMediaType: '总计',
+            adAccountName: '总计',
+            cost: totalCost,
+            price: totalGmv,
             ecDealCount: totalEcDealCount,
+            ROI: totalCost == 0 ? 0 : (totalGmv / totalCost).toFixed(2),
           },
         ];
       }

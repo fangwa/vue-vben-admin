@@ -68,6 +68,11 @@ const transform: AxiosTransform = {
         userStore.setToken(undefined);
         userStore.logout(true);
         break;
+      case ResultEnum.SUCCESS_SHOW_MESSAGE:
+        if (message) {
+          createErrorModal({ title: t('sys.api.errorTip'), content: message });
+        }
+        return result;
       default:
         if (message) {
           timeoutMsg = message;

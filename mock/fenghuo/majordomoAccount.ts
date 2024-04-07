@@ -5,8 +5,9 @@ const demoList = (() => {
   const result: any[] = [];
   for (let index = 1; index <= 26; index++) {
     result.push({
+      Id: index,
       accountId: '@integer(100000000,900000000)',
-      accountName: '@cname()',
+      name: '@cname()',
       'accountRole|1': [
         '广告主',
         '管理员授权的纵横组织',
@@ -28,7 +29,7 @@ const demoList = (() => {
 
 export default [
   {
-    url: '/basic-api/fenghuo/getMajordomoAccounts',
+    url: '/basic-api/system/user/page',
     timeout: 100,
     method: 'get',
     response: ({ query }) => {
